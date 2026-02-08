@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request
+ffrom flask import Flask, render_template, request
 import pickle
 import numpy as np
 import sqlite3
 
 app = Flask(__name__)
 
-# Load model and features
 model = pickle.load(open("model.pkl", "rb"))
 features = pickle.load(open("features.pkl", "rb"))
 
@@ -16,15 +15,13 @@ def home():
 
     if request.method == "POST":
         selected_symptoms = request.form.getlist("symptoms")
-
         input_data = [1 if symptom in selected_symptoms else 0 for symptom in features]
 
         probs = model.predict_proba([input_data])[0]
         pred_index = np.argmax(probs)
-        prediction = model.classes_[pred_index]
+        prediction = model.classes_[pred_index]   # <-- THIS LINE FIXES IT
         confidence = round(probs[pred_index] * 100, 2)
 
-        # Save to database
         conn = sqlite3.connect("symptom_disease.db")
         cursor = conn.cursor()
         cursor.execute(
