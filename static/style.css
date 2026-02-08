@@ -1,0 +1,205 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    transition: background 0.3s ease;
+}
+
+body.dark {
+    background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+.toggle-container {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 1rem;
+}
+
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #4facfe;
+}
+
+input:checked + .slider:before {
+    transform: translateX(22px);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 25px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.6s ease-in-out;
+    transition: background 0.3s ease;
+}
+
+body.dark .container {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    transition: background 0.3s ease;
+}
+
+body.dark .card {
+    background: #1e293b;
+    color: #e5e7eb;
+}
+
+.symptoms-box {
+    max-height: 300px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.symptom {
+    background: #f4f6ff;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s ease;
+    border: 2px solid transparent;
+}
+
+body.dark .symptom {
+    background: #334155;
+}
+
+.symptom:hover {
+    background: #e6ecff;
+}
+
+body.dark .symptom:hover {
+    background: #475569;
+}
+
+.symptom input {
+    accent-color: #0072ff;
+    transform: scale(1.2);
+}
+
+.predict-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #0072ff, #00c6ff);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.predict-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
+}
+
+.result-box {
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    animation: popIn 0.5s ease;
+}
+
+body.dark .result-box {
+    background: #1e293b;
+    color: #e5e7eb;
+}
+
+.result-box h2 {
+    margin-bottom: 10px;
+    color: #0072ff;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 500px) {
+    h1 { font-size: 1.6rem; }
+    .symptoms-box { grid-template-columns: 1fr; }
+}

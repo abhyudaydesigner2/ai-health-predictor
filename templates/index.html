@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Health Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+    <div class="toggle-container">
+        <span>🌞</span>
+        <label class="switch">
+            <input type="checkbox" id="themeToggle">
+            <span class="slider"></span>
+        </label>
+        <span>🌙</span>
+    </div>
+
+    <div class="container">
+        <h1>🩺 AI Health Predictor</h1>
+        <p class="subtitle">Select your symptoms and let AI predict possible diseases</p>
+
+        <form method="POST" class="card">
+            <div class="symptoms-box">
+                {% for symptom in features %}
+                <label class="symptom">
+                    <input type="checkbox" name="symptoms" value="{{ symptom }}">
+                    <span>{{ symptom.replace("_", " ").title() }}</span>
+                </label>
+                {% endfor %}
+            </div>
+            <button type="submit" class="predict-btn">🔍 Predict Disease</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result-box">
+            <h2>🧠 Prediction Result</h2>
+            <p><strong>Disease:</strong> {{ prediction }}</p>
+            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
