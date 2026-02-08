@@ -37,4 +37,6 @@ def home():
     return render_template("index.html", features=features, prediction=prediction, confidence=confidence)
 
 if __name__ == "__main__":
+    print("Loaded features:", features)
+
     app.run(debug=True)
