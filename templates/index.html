@@ -3,47 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>AI Health Predictor</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+        .card {
+            background: white;
+            color: black;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .symptom-box {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .symptom-box label {
+            background: #f2f2f2;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button {
+            background: #0072ff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            background: #e6f0ff;
+            padding: 15px;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="toggle-container">
-        <span>🌞</span>
-        <label class="switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="slider"></span>
-        </label>
-        <span>🌙</span>
-    </div>
+<h1>🩺 AI Health Predictor</h1>
+<p>Select your symptoms and click Predict</p>
 
-    <div class="container">
-        <h1>🩺 AI Health Predictor</h1>
-        <p class="subtitle">Select your symptoms and let AI predict possible diseases</p>
-
-        <form method="POST" class="card">
-            <div class="symptoms-box">
-                {% for symptom in features %}
-                <label class="symptom">
-                    <input type="checkbox" name="symptoms" value="{{ symptom }}">
-                    <span>{{ symptom.replace("_", " ").title() }}</span>
+<div class="card">
+    <form method="POST">
+        <div class="symptom-box">
+            {% for symptom in symptoms %}
+                <label>
+                    <input type="checkbox" name="symptoms" value="{{ symptom }}"> {{ symptom.replace("_", " ").title() }}
                 </label>
-                {% endfor %}
-            </div>
-            <button type="submit" class="predict-btn">🔍 Predict Disease</button>
-        </form>
-
-        {% if prediction %}
-        <div class="result-box">
-            <h2>🧠 Prediction Result</h2>
-            <p><strong>Disease:</strong> {{ prediction }}</p>
-            <p><strong>Confidence:</strong> {{ confidence }}%</p>
+            {% endfor %}
         </div>
-        {% endif %}
+        <button type="submit">🔍 Predict Disease</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        <h2>🧠 Prediction Result</h2>
+        <p><strong>Disease:</strong> {{ prediction }}</p>
+        <p><strong>Confidence:</strong> {{ "%.2f"|format(confidence) }}%</p>
     </div>
+    {% endif %}
+</div>
 
 </body>
 </html>
